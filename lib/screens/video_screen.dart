@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
+
+import '../widgets/dynamic_link.dart';
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({super.key});
@@ -76,7 +79,16 @@ class _VideoScreenState extends State<VideoScreen> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple
                 ),
-                onPressed: (){},
+                onPressed: (){
+                  DynamicLinkProvider()
+                      .createLink("rniX") // Pass your referral code here
+                      .then((generatedLink) {
+                    Share.share(generatedLink);
+                  })
+                      .catchError((error) {
+                    print("Error generating dynamic link: $error");
+                  });
+                },
                 child: Text(' Click for link ', style: TextStyle(fontSize: 16,color: Colors.white),)),
           )
 

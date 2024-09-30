@@ -1,4 +1,6 @@
+import 'package:company_app/widgets/dynamic_link.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 class ImageScreen extends StatefulWidget {
   const ImageScreen({super.key});
 
@@ -27,7 +29,16 @@ class _ImageScreenState extends State<ImageScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black87
                           ),
-                          onPressed: (){},
+                          onPressed: (){
+                            DynamicLinkProvider()
+                                .createLink("rniX") // Pass your referral code here
+                                .then((generatedLink) {
+                              Share.share(generatedLink);
+                            })
+                                .catchError((error) {
+                              print("Error generating dynamic link: $error");
+                            });
+                          },
                           child: Text(' Click for link ', style: TextStyle(fontSize: 16,color: Colors.white),)),
                     )
                   ],

@@ -1,4 +1,6 @@
+import 'package:company_app/widgets/dynamic_link.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class TextScreen extends StatefulWidget {
   const TextScreen({super.key});
@@ -14,27 +16,41 @@ class _TextScreenState extends State<TextScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child:
-          Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Hello ',
-                              style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Hello',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  width: 200,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black87,
+                    ),
+                    onPressed: () {
+                      DynamicLinkProvider()
+                          .createLink("rniX") // Pass your referral code here
+                          .then((generatedLink) {
+                        Share.share(generatedLink);
+                      })
+                          .catchError((error) {
+                        print("Error generating dynamic link: $error");
+                      });
+
+                    },
+                    child: Text(
+                      'Click for link',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
                   ),
-                  SizedBox(height: 10,),
-                  Container(
-                    width: 200,
-                    child: ElevatedButton(
-                         style: ElevatedButton.styleFrom(
-                           backgroundColor: Colors.black87
-                         ),
-                        onPressed: (){},
-                        child: Text(' Click for link ', style: TextStyle(fontSize: 16,color: Colors.white),)),
-                  )
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

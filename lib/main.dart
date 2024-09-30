@@ -1,7 +1,12 @@
 import 'package:company_app/screens/Bottom_Nav_Bar.dart';
+import 'package:company_app/widgets/dynamic_link.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  DynamicLinkProvider().initDynamicLink();
   runApp(const MyApp());
 }
 
