@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral() // Replaced jcenter with mavenCentral
+    }
+
+    dependencies {
+        // Updated google-services to a more recent version (4.4.2 is outdated)
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral() // Ensure mavenCentral is used instead of jcenter
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
